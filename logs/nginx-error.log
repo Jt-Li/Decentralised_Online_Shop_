@@ -1,0 +1,21 @@
+2017/11/05 08:45:09 [error] 8#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 08:45:10 [error] 8#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100", referrer: "http://192.168.99.100/"
+2017/11/05 08:56:01 [error] 6#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 08:56:04 [error] 6#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 08:59:51 [error] 8#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 08:59:53 [error] 8#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 09:00:44 [error] 7#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 09:04:54 [error] 7#0: *3 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 09:05:02 [error] 7#0: *3 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 09:05:27 [error] 7#0: *3 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET /about HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 09:05:32 [error] 7#0: *3 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 09:11:00 [error] 7#0: *8 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"
+2017/11/05 09:14:05 [emerg] 1#0: unexpected "}" in /etc/nginx/sites-enabled/default:12
+2017/11/05 09:14:49 [emerg] 1#0: unexpected "}" in /etc/nginx/sites-enabled/default:12
+2017/11/05 09:16:05 [emerg] 1#0: unexpected "}" in /etc/nginx/sites-enabled/default:12
+2017/11/05 09:16:25 [emerg] 1#0: unexpected "}" in /etc/nginx/sites-enabled/default:12
+2017/11/05 09:16:51 [emerg] 1#0: unexpected "}" in /etc/nginx/sites-enabled/default:12
+2017/11/05 09:17:05 [emerg] 1#0: unexpected "}" in /etc/nginx/sites-enabled/default:12
+2017/11/05 09:17:23 [emerg] 1#0: unexpected "}" in /etc/nginx/sites-enabled/default:12
+2017/11/05 09:18:05 [emerg] 1#0: unknown directive "index.php" in /etc/nginx/sites-enabled/default:8
+2017/11/05 09:23:12 [error] 7#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 192.168.99.1, server: 192.168.99.100, request: "GET / HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "192.168.99.100"

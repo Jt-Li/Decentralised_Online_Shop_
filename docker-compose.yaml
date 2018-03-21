@@ -1,0 +1,49 @@
+version: '2'
+services:
+    web_nginx:
+        build:
+            context: ./
+            dockerfile: ./nginx/Dockerfile
+        volumes:
+            - ./laravel:/var/www
+        ports:
+            - "80:80"
+        links:
+            - app
+    app:
+        build:
+            context: ./
+            dockerfile: ./laravel-backend/Dockerfile
+        user: "1000"
+        volumes:
+            - ./laravel-backend:/var/www
+        links:
+            - db
+            - cache
+        environment:
+            - "DB_PORT=5432"
+            - "DB_HOST=db"
+            - "REDIS_PORT=6379"
+            - "REDIS_HOST=cache"
+        ports:
+            - "9000:9000"
+    db:
+        image: postgres
+        environment:
+          POSTGRES_PASSWORD: root
+          POSTGRES_USER: root
+        volumes:
+          - ./postgres:/var/lib/postgresql:Z
+        ports:
+          - "5432:5432"
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+          - "8080:8080"
+    cache:
+        image: redis:3.0
+        ports:
+            - "63791:6379"
+
+
