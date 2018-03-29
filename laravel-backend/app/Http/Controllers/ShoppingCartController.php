@@ -4,82 +4,101 @@ namespace App\Http\Controllers;
 
 use App\ShoppingCart;
 use Illuminate\Http\Request;
+use App\Product;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class ShoppingCartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    
+    public function createShoppingCart(Request $request)
     {
-        //
+        $this->validate($request, [
+            'quantity' => 'required|integer',
+            'product_id' => 'required|integer',
+        ]);
+
+        $user = $request->user();
+        if (!$user) {
+            return response()->json(['errors' => "user_not_found"], 404);
+        }
+        
+        $product_id = $request->'product_id';
+        $product = Product::find($product_id);
+        if (!$product) {
+            return respons()->json(['errors' => "product_not_found"], 404);
+        }
+        
+        $newShoppingCartData = $reuest->only(['product_id', 'quantity']);
+        $newShoppingCartData['created_by'] = $user->id;
+
+        DB::beginTransaction();
+
+        try {
+            $shoppingCart = new ShoppingCart();
+            $shoppingCart->fill($newShoppingCartData);
+            $shoppingCart->save();
+            DB::commit();
+            return response()->json($shoppingCart, 201);
+        } catch (Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    
+    public function getShoppingCarts(Request $reuest)
     {
-        //
+        $user = $request->user();
+        if (!$user) {
+            return response()->json(['errors' => "user_not_found"], 404);
+        }
+        $shoppingCarts = ShoppingCart::where('created_by', '=', $user->id);
+
+        return response()->json($shoppingCarts);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    
+    public function updateShoppingCart($id, Request $request)
     {
         //
+        $this->validate($request, [
+            'quantity' => 'required|integer',
+        ]);
+
+        $user = $request->user();
+        if (!$user) {
+            return response()->json(['errors' => "user_not_found"], 404);
+        }
+
+        $shoppingCart = ShoppingCart::where('id', '=', $id);
+        if ($shoppingCart->created_by != $user->id) {
+            return response()->json(['errors' => "not_authorised"], 401);
+        }
+
+        $newShoppingCartData = $reuest->only(['quantity']);
+        $newShoppingCartData['created_by'] = $user->id;
+        $shoppingCart->fill($newShoppingCartData);
+        $shoppingCart->save();
+
+        return response()->json($shoppingCart, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ShoppingCart  $shoppingCart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ShoppingCart $shoppingCart)
+    
+    public function deleteShoppingCart($id, Resquest $reuest)
     {
-        //
-    }
+        $user = $request->user();
+        if (!$user) {
+            return response()->json(['errors' => "user_not_found"], 404);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ShoppingCart  $shoppingCart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ShoppingCart $shoppingCart)
-    {
-        //
-    }
+        $shoppingCart = ShoppingCart::where('id', '=', $id);
+        if ($shoppingCart->created_by != $user->id) {
+            return response()->json(['errors' => "not_authorised"], 401);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ShoppingCart  $shoppingCart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ShoppingCart $shoppingCart)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ShoppingCart  $shoppingCart
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ShoppingCart $shoppingCart)
-    {
-        //
+        $shoppingCart->delete();
+        return response()->json(null, 204);
     }
 }

@@ -14,12 +14,12 @@ class UsersTableSeeder extends Seeder
     {
         //
         User::create([
-            'user_name' => str_random(10),
+            'name' => str_random(10),
             'email' => 'test@gmail.com',
         ]);
 
         User::create([
-            'user_name' => str_random(10),
+            'name' => str_random(10),
             'email' => 'test2@gmail.com',
         ]);
     }

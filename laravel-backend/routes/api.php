@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('shoppingCarts', 'ShoppingCartController@getShoppingCarts');
+Route::post('shoppingCarts', 'ShoppingCartController@createShoppingCart');
+Route::put('shoppingCarts/{id}', 'ShoppingCartController@updateShoppingCart');
+Route::delete('shoppingCarts/{id}', 'ShoppingCartController@deleteShoppingCart');
+
+
