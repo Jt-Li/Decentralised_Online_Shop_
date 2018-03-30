@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Validator;
@@ -27,7 +28,7 @@ class ProductController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        $user = $request->user();
+        $user = User::where('address', '=', $request->address);
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
@@ -69,7 +70,7 @@ class ProductController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        $user = $request->user();
+        $user = User::where('address', '=', $request->address);
         if (!$user) {
         	return resonse()->json(['errors' => "user_not_found"], 404);
         }
@@ -95,7 +96,7 @@ class ProductController extends Controller
     }
 
     public function deleteProduct($id, Request $request) {
-    	$user = $request->user();
+    	$user = User::where('address', '=', $request->address);
         if (!$user) {
         	return resonse()->json(['errors' => "user_not_found"], 404);
         }
@@ -112,7 +113,7 @@ class ProductController extends Controller
     }
 
     public function listAllProducts(Request $request) {
-    	$user = $request->user();
+    	$user = User::where('address', '=', $request->address);
         if (!$user) {
         	return resonse()->json(['errors' => "user_not_found"], 404);
         }

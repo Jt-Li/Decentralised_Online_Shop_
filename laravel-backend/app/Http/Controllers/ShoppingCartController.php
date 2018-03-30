@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ShoppingCart;
 use Illuminate\Http\Request;
 use App\Product;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Validator;
@@ -23,7 +24,7 @@ class ShoppingCartController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        $user = $request->user();
+        $user = User::where('address', '=', $request->address);
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
@@ -34,6 +35,7 @@ class ShoppingCartController extends Controller
             return response()->json(['errors' => "product_not_found"], 404);
         }
 
+        $quantity = $request->quantity;
         if ($quantity > $product->quantity) {
             return response()->json(['errors' => "not_enough_stocks"], 404);
         }
@@ -59,7 +61,7 @@ class ShoppingCartController extends Controller
     
     public function getShoppingCarts(Request $request)
     {
-        $user = $request->user();
+        $user = User::where('address', '=', $request->address);
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
@@ -80,7 +82,7 @@ class ShoppingCartController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        $user = $request->user();
+        $user = User::where('address', '=', $request->address);
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
@@ -101,7 +103,7 @@ class ShoppingCartController extends Controller
     
     public function deleteShoppingCart($id, Resquest $request)
     {
-        $user = $request->user();
+        $user = User::where('address', '=', $request->address);
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
