@@ -6,6 +6,10 @@ use App\User;
 use App\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Exception;
+use Illuminate\Support\Facades\Validator;
+
+
 class UserInfoController extends Controller
 {
     /**
@@ -39,8 +43,10 @@ class UserInfoController extends Controller
         $this->validate($request, [
             'address' => 'required|string',
             'email' => 'required|email',
-            'name' => 'required|string'
+            'name' => 'required|string',
         ]);
+       
+
         $newUserData = $request->only(['address', 'email', 'name']);
         DB::beginTransaction();
         try {
@@ -51,7 +57,8 @@ class UserInfoController extends Controller
             return response()->json($user, 201);
         } catch (Exception $e) {
             DB::rollback();
-            throw $e;
+            return response()->json(['error'=>$e->getMessage()]);
+            //throw $e;
         }
     }
 

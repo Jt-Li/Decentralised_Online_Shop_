@@ -26,7 +26,11 @@ class ShoppingCartController extends Controller
         $product_id = $request->product_id;
         $product = Product::find($product_id);
         if (!$product) {
-            return respons()->json(['errors' => "product_not_found"], 404);
+            return response()->json(['errors' => "product_not_found"], 404);
+        }
+
+        if ($quantity > $product->quantity) {
+            return response()->json(['errors' => "not_enough_stocks"], 404);
         }
         
         $newShoppingCartData = $request->only(['product_id', 'quantity']);
@@ -39,10 +43,10 @@ class ShoppingCartController extends Controller
             $shoppingCart->fill($newShoppingCartData);
             $shoppingCart->save();
             DB::commit();
-            return response()->json($shoppingCart, 201);
+            return response()->json($shoppingCart, 200);
         } catch (Exception $e) {
             DB::rollback();
-            throw $e;
+            return response()->json(['error'=>$e->getMessage()]);
         }
 
     }
@@ -74,7 +78,7 @@ class ShoppingCartController extends Controller
 
         $shoppingCart = ShoppingCart::where('id', '=', $id);
         if ($shoppingCart->created_by != $user->id) {
-            return response()->json(['errors' => "not_authorised"], 401);
+            return response()->json(['errors' => "not_authorised"], 404);
         }
 
         $newShoppingCartData = $request->only(['quantity']);
@@ -95,7 +99,7 @@ class ShoppingCartController extends Controller
 
         $shoppingCart = ShoppingCart::where('id', '=', $id);
         if ($shoppingCart->created_by != $user->id) {
-            return response()->json(['errors' => "not_authorised"], 401);
+            return response()->json(['errors' => "not_authorised"], 404);
         }
 
         $shoppingCart->delete();

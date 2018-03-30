@@ -43,10 +43,10 @@ class ProductController extends Controller
             $Product->fill($newProductData);
             $Product->save();
             DB::commit();
-            return response()->json($Product, 201);
+            return response()->json($Product, 200);
         } catch (Exception $e) {
             DB::rollback();
-            throw $e;
+            return response()->json(['error'=>$e->getMessage()]);
         }
 
     }
@@ -68,7 +68,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         if ($product->owner_id != $user->id) {
-        	return response()->json(['errors' => "not_authorised"], 401)；
+        	return response()->json(['errors' => "not_authorised"], 404)；
         }
 
         $category_id = $request->category_id;
@@ -94,12 +94,12 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         if ($product->owner_id != $user->id) {
-        	return response()->json(['errors' => "not_authorised"], 401)；
+        	return response()->json(['errors' => "not_authorised"], 404)；
         }
 
         $product->delete();
 
-        return resonse()->json(null, 204);
+        return resonse()->json(null, 200);
 
     }
 
