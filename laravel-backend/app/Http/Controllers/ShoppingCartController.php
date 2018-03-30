@@ -7,16 +7,21 @@ use Illuminate\Http\Request;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Validator;
 
 class ShoppingCartController extends Controller
 {
     
     public function createShoppingCart(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'quantity' => 'required|integer',
             'product_id' => 'required|integer',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errors"=>$validator->errors()->all()], 404);
+        }
 
         $user = $request->user();
         if (!$user) {
@@ -66,10 +71,14 @@ class ShoppingCartController extends Controller
     
     public function updateShoppingCart($id, Request $request)
     {
-        //
-        $this->validate($request, [
+        
+        $validator = Validator::make($request->all(), [
             'quantity' => 'required|integer',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errors"=>$validator->errors()->all()], 404);
+        }
 
         $user = $request->user();
         if (!$user) {

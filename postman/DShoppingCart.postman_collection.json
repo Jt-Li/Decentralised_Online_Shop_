@@ -1,67 +1,226 @@
 {
-	"variables": [],
 	"info": {
 		"name": "DShoppingCart",
-		"_postman_id": "05e36a7d-f09e-cce5-5d21-cc34c9588418",
+		"_postman_id": "615d07ab-daaa-4349-9547-108d5738f7f8",
 		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "User Address Check",
 			"request": {
-				"url": "192.168.99.100/api/user/rgz5PGZO7D",
 				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "192.168.99.100/api/user/rgz5PGZO7D",
+					"host": [
+						"192",
+						"168",
+						"99",
+						"100"
+					],
+					"path": [
+						"api",
+						"user",
+						"rgz5PGZO7D"
+					]
+				},
+				"description": null
 			},
 			"response": []
 		},
 		{
 			"name": "add User ",
 			"request": {
-				"url": "192.168.99.100/api/user",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
 				},
+				"url": {
+					"raw": "192.168.99.100/api/user",
+					"host": [
+						"192",
+						"168",
+						"99",
+						"100"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "createShoppingCart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"quantity\": \"2\",\n    \"product_id\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "192.168.99.100/api/shoppingCarts",
+					"host": [
+						"192",
+						"168",
+						"99",
+						"100"
+					],
+					"path": [
+						"api",
+						"shoppingCarts"
+					]
+				},
 				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "User Address Check Not Found",
+			"name": "getShoppingCarts",
 			"request": {
-				"url": "192.168.99.100/api/user/rgz5PGZO7",
 				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "updateShoppingCart",
+			"request": {
+				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
+					"raw": "{\n\t\"id\" : \"1\",\n\t\"quantity\": \"2\"\n}"
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "deleteShoppingCart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : \"1\"\n}"
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "listAllProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "uploadProduct",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n    \"image_url\" : \"google.com\",\n    \"price\" : \"1000\",\n    \"category_id\" : \"2\"\n            \n    \n}"
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "editProduct",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n    \"image_url\" : \"google.com\",\n    \"price\" : \"1000\",\n    \"category_id\" : \"2\"\n            \n    \n}"
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProduct",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : \"1\"\n            \n    \n}"
+				},
+				"url": {
+					"raw": ""
 				},
 				"description": ""
 			},

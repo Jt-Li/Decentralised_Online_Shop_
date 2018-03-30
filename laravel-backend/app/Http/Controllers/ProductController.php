@@ -7,13 +7,14 @@ use App\Category;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Validator;
 
 class ProductController extends Controller
 {
     //
     public function uploadProduct(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'quantity' => 'required|integer',
             'description' => 'required',
             'name' => 'required',
@@ -21,6 +22,10 @@ class ProductController extends Controller
             'price' => 'required',
             'category_id' => 'required|integer',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(["errors"=>$validator->errors()->all()], 404);
+        }
 
         $user = $request->user();
         if (!$user) {
@@ -52,7 +57,7 @@ class ProductController extends Controller
     }
 
     public function editProduct($id, Request $request) {
-    	$this->validate($request, [
+    	$validator = Validator::make($request->all(), [
             'quantity' => 'required|integer',
             'description' => 'required',
             'name' => 'required',
@@ -60,6 +65,9 @@ class ProductController extends Controller
             'price' => 'required',
             'category_id' => 'required|integer',
         ]);
+        if ($validator->fails()) {
+            return response()->json(["errors"=>$validator->errors()->all()], 404);
+        }
 
         $user = $request->user();
         if (!$user) {
