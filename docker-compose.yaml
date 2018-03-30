@@ -18,7 +18,7 @@ services:
         volumes:
             - ./laravel-backend:/var/www
         links:
-            - mysql
+            - db
             - cache
         environment:
             - "DB_PORT=3306"
@@ -45,15 +45,15 @@ services:
         image: redis:3.0
         ports:
             - "63791:6379"
-    mysql:
-        image: mysql
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: shoppingcart
-        ports:
-          - "3306:3306"
-        user: "1000"
-        volumes:
-          - ./db/mysql:/var/lib/mysql
+    #mysql:
+    #    image: mysql
+    #    environment:
+    #      MYSQL_ROOT_PASSWORD: root
+    #      MYSQL_DATABASE: shoppingcart
+    #    ports:
+    #      - "3306:3306"
+    #    user: "1000"
+    #    volumes:
+    #      - ./db/mysql:/var/lib/mysql
 
 
