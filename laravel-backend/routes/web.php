@@ -17,3 +17,4 @@ Route::get('/', function () {
     return $users;
     //return view('welcome');
 });
+
