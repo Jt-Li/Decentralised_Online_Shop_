@@ -46,6 +46,26 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "User Address Check Not Found",
+			"request": {
+				"url": "192.168.99.100/api/user/rgz5PGZO7",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
