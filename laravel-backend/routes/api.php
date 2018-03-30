@@ -17,11 +17,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+//shoppingCarts API
 Route::get('shoppingCarts', 'ShoppingCartController@getShoppingCarts');
 Route::post('shoppingCarts', 'ShoppingCartController@createShoppingCart');
 Route::put('shoppingCarts/{id}', 'ShoppingCartController@updateShoppingCart');
 Route::delete('shoppingCarts/{id}', 'ShoppingCartController@deleteShoppingCart');
+
+
+//Product API
+Route::get('products', 'ProductController@listAllProducts');
+Route::post('products', 'ProductController@uploadProduct');
+Route::put('products/{id}', 'ProductController@editProduct');
+Route::delete('products/{id}', 'ProductController@deleteProduct');
+
+
+
+
+
 
 Route::get('user/{address}', 'UserInfoController@checkIfUserExists');
 Route::post('user', 'UserInfoController@store');
