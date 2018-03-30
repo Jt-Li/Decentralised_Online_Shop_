@@ -23,13 +23,13 @@ class ShoppingCartController extends Controller
             return response()->json(['errors' => "user_not_found"], 404);
         }
         
-        $product_id = $request->'product_id';
+        $product_id = $request->product_id;
         $product = Product::find($product_id);
         if (!$product) {
             return respons()->json(['errors' => "product_not_found"], 404);
         }
         
-        $newShoppingCartData = $reuest->only(['product_id', 'quantity']);
+        $newShoppingCartData = $request->only(['product_id', 'quantity']);
         $newShoppingCartData['created_by'] = $user->id;
 
         DB::beginTransaction();
@@ -48,7 +48,7 @@ class ShoppingCartController extends Controller
     }
 
     
-    public function getShoppingCarts(Request $reuest)
+    public function getShoppingCarts(Request $request)
     {
         $user = $request->user();
         if (!$user) {
@@ -77,7 +77,7 @@ class ShoppingCartController extends Controller
             return response()->json(['errors' => "not_authorised"], 401);
         }
 
-        $newShoppingCartData = $reuest->only(['quantity']);
+        $newShoppingCartData = $request->only(['quantity']);
         $newShoppingCartData['created_by'] = $user->id;
         $shoppingCart->fill($newShoppingCartData);
         $shoppingCart->save();
@@ -86,7 +86,7 @@ class ShoppingCartController extends Controller
     }
 
     
-    public function deleteShoppingCart($id, Resquest $reuest)
+    public function deleteShoppingCart($id, Resquest $request)
     {
         $user = $request->user();
         if (!$user) {
