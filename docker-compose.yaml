@@ -14,11 +14,10 @@ services:
         build:
             context: ./
             dockerfile: ./laravel-backend/Dockerfile
-        user: "1000"
         volumes:
             - ./laravel-backend:/var/www
         links:
-            - db
+            - shoppingcartdb
             - cache
         environment:
             - "DB_PORT=3306"
@@ -27,13 +26,13 @@ services:
             - "REDIS_HOST=cache"
         ports:
             - "9000:9000"
-    db:
+    shoppingcartdb:
         image: postgres
         environment:
           POSTGRES_PASSWORD: root
           POSTGRES_USER: root
         volumes:
-          - ./postgres:/var/lib/postgresql:Z
+          - ./postgres/data:/var/lib/postgresql/data:Z
         ports:
           - "5432:5432"
     adminer:
