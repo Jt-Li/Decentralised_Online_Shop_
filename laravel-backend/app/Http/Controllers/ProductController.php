@@ -77,7 +77,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         if ($product->owner_id != $user->id) {
-        	return response()->json(['errors' => "not_authorised"], 404)；
+        	return response()->json(['errors' => "not_authorised"], 404);
         }
 
         $category_id = $request->category_id;
@@ -103,7 +103,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         if ($product->owner_id != $user->id) {
-        	return response()->json(['errors' => "not_authorised"], 404)；
+        	return response()->json(['errors' => "not_authorised"], 404);
         }
 
         $product->delete();
