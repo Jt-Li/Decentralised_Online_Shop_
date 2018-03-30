@@ -5,7 +5,7 @@ services:
             context: ./
             dockerfile: ./nginx/Dockerfile
         volumes:
-            - ./laravel-backend:/var/www
+            - ./laravel-backend:/var/www/
         ports:
             - "80:80"
         links:
@@ -15,7 +15,7 @@ services:
             context: ./
             dockerfile: ./laravel-backend/Dockerfile
         volumes:
-            - ./laravel-backend:/var/www
+            - ./laravel-backend:/var/www/
         links:
             - shoppingcartdb
             - cache
@@ -31,8 +31,7 @@ services:
         environment:
           POSTGRES_PASSWORD: root
           POSTGRES_USER: root
-        volumes:
-          - ./postgres/data:/var/lib/postgresql/data:Z
+
         ports:
           - "5432:5432"
     adminer:
