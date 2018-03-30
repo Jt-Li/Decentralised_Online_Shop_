@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
     web_nginx:
         build:
@@ -32,8 +32,11 @@ services:
           POSTGRES_PASSWORD: root
           POSTGRES_USER: root
 
+        volumes:
+           - data-volume:/var/lib/postgresql/data
         ports:
           - "5432:5432"
+
     adminer:
         image: adminer
         restart: always
@@ -43,6 +46,8 @@ services:
         image: redis:3.0
         ports:
             - "63791:6379"
+volumes:
+    data-volume:
     #mysql:
     #    image: mysql
     #    environment:
