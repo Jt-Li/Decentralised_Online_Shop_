@@ -5,7 +5,7 @@ services:
             context: ./
             dockerfile: ./nginx/Dockerfile
         volumes:
-            - ./laravel:/var/www
+            - ./laravel-backend:/var/www
         ports:
             - "80:80"
         links:
