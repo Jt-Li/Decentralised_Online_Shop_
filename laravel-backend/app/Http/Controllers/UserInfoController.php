@@ -6,10 +6,11 @@ use App\User;
 use App\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+
 use Exception;
-use Illuminate\Support\Facades\Validator;
-
-
+use Validator;
+>>>>>>> 18b13cdd9a86278ae0dcdec0583b3c219c54f507
 class UserInfoController extends Controller
 {
     /**
@@ -40,12 +41,17 @@ class UserInfoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'address' => 'required|string',
-            'email' => 'required|email',
-            'name' => 'required|string',
+
+//        try{
+
+        $validator = Validator::make($request->all(), [
+            'address' => 'required|string|unique:users',
+            'email' => 'required|email|unique:users',
+            'name' => 'required|string'
         ]);
-       
+        if ($validator->fails()) {
+            return response()->json(["errors"=>$validator->errors()->all()], 404);
+        }
 
         $newUserData = $request->only(['address', 'email', 'name']);
         DB::beginTransaction();
@@ -57,8 +63,8 @@ class UserInfoController extends Controller
             return response()->json($user, 201);
         } catch (Exception $e) {
             DB::rollback();
-            return response()->json(['error'=>$e->getMessage()]);
-            //throw $e;
+
+            return response()->json(['error' => $e->getMessage()], 404);
         }
     }
 
