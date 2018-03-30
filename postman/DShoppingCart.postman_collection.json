@@ -1,0 +1,51 @@
+{
+	"variables": [],
+	"info": {
+		"name": "DShoppingCart",
+		"_postman_id": "05e36a7d-f09e-cce5-5d21-cc34c9588418",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Address Check",
+			"request": {
+				"url": "192.168.99.100/api/user/rgz5PGZO7D",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "add User ",
+			"request": {
+				"url": "192.168.99.100/api/user",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
