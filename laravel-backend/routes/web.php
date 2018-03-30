@@ -13,8 +13,11 @@ use App\Http\Controllers\Controller;
 */
 
 Route::get('/', function () {
-    $users = DB::table('users')->get();
-    return $users;
+    //$users = DB::table('users')->get();
+    return "hall";
+    //
+    // RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
+
     //return view('welcome');
 });
 
