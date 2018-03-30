@@ -23,4 +23,5 @@ Route::post('shoppingCarts', 'ShoppingCartController@createShoppingCart');
 Route::put('shoppingCarts/{id}', 'ShoppingCartController@updateShoppingCart');
 Route::delete('shoppingCarts/{id}', 'ShoppingCartController@deleteShoppingCart');
 
-
+Route::get('user/{address}', 'UserInfoController@checkIfUserExists');
+Route::post('user', 'UserInfoController@store');

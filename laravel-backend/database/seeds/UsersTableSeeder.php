@@ -16,11 +16,13 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => str_random(10),
             'email' => 'test@gmail.com',
+            'address' => str_random(10)
         ]);
 
         User::create([
             'name' => str_random(10),
             'email' => 'test2@gmail.com',
+            'address' => str_random(10)
         ]);
     }
 }
