@@ -19,11 +19,7 @@ services:
         links:
             - shoppingcartdb
             - cache
-        environment:
-            - "DB_PORT=3306"
-            - "DB_HOST=mysql"
-            - "REDIS_PORT=6379"
-            - "REDIS_HOST=cache"
+        user: "1000"
         ports:
             - "9000:9000"
     shoppingcartdb:
