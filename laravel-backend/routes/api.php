@@ -35,3 +35,6 @@ Route::delete('products/{id}', 'ProductController@deleteProduct');
 //user API
 Route::get('user/{address}', 'UserInfoController@checkIfUserExists');
 Route::post('user', 'UserInfoController@store');
+
+//Image Upload POC
+Route::post('image', 'ImageController@store');
