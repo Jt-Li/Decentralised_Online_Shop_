@@ -12,9 +12,11 @@ use Validator;
 
 class ProductController extends Controller
 {
-    //
+    
     public function uploadProduct(Request $request)
     {
+        //check arguments
+        //image_url need to use ImageController need fix soon
         $validator = Validator::make($request->all(), [
             'quantity' => 'required|integer',
             'description' => 'required',
@@ -28,20 +30,24 @@ class ProductController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        $user = User::where('address', '=', $request->address);
+        //check user
+        $user = User::where('address', '=', $request->address)->first();
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
         
+        //check category_id
         $category_id = $request->category_id;
         $category = Category::find($category_id);
         if (!$category) {
             return response()->json(['errors' => "category_not_found"], 404);
         }
         
+        //fill the data
         $newProductData = $request->only(['quantity', 'image_url', 'description', 'name', 'price', 'category_id' ]);
         $newProductData['owner_id'] = $user->id;
 
+        //store data
         DB::beginTransaction();
 
         try {
@@ -58,6 +64,7 @@ class ProductController extends Controller
     }
 
     public function editProduct($id, Request $request) {
+        //check arguments
     	$validator = Validator::make($request->all(), [
             'quantity' => 'required|integer',
             'description' => 'required',
@@ -70,56 +77,69 @@ class ProductController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        $user = User::where('address', '=', $request->address);
+        //check user
+        $user = User::where('address', '=', $request->address)->first();
         if (!$user) {
-        	return resonse()->json(['errors' => "user_not_found"], 404);
+        	return response()->json(['errors' => "user_not_found"], 404);
         }
 
-        $product = Product::find($id);
+        //check authorised
+        $product = Product::where('id', '=', $id)->first();
         if ($product->owner_id != $user->id) {
         	return response()->json(['errors' => "not_authorised"], 404);
         }
 
+        //check category_id 
         $category_id = $request->category_id;
         $category = Category::find($category_id);
         if (!$category) {
             return response()->json(['errors' => "category_not_found"], 404);
         }
 
+        //fill data
         $newProductData = $request->only(['quantity', 'image_url', 'description', 'name', 'price', 'category_id' ]);
         $newProductData['owner_id'] = $user->id;
 
-        
+        //store data
         $product->fill($newProductData);
         $product->save();
-        return resonse()->json($product, 200);
+        return response()->json($product, 200);
     }
 
     public function deleteProduct($id, Request $request) {
-    	$user = User::where('address', '=', $request->address);
+        
+        //check user
+        $user = User::where('address', '=', $request->address)->first();
         if (!$user) {
-        	return resonse()->json(['errors' => "user_not_found"], 404);
+        	return response()->json(['errors' => "user_not_found"], 404);
         }
 
-        $product = Product::find($id);
+        //check authorised
+        $product = Product::where('id', '=', $id)->first();
+        //if product not exist
+        if (!$product) {
+            return response()->json(['errors' => "product_not_found"], 404);
+        }
         if ($product->owner_id != $user->id) {
         	return response()->json(['errors' => "not_authorised"], 404);
         }
 
+        //delete
         $product->delete();
 
-        return resonse()->json(null, 200);
+        return response()->json(['messages' => "deleted_successfully"], 200);
 
     }
 
     public function listAllProducts(Request $request) {
-    	$user = User::where('address', '=', $request->address);
+        //check user
+    	$user = User::where('address', '=', $request->address)->first();
         if (!$user) {
-        	return resonse()->json(['errors' => "user_not_found"], 404);
+        	return response()->json(['errors' => "user_not_found"], 404);
         }
-
-        $products = Product::where('owner_id', '=', $user->id);
-
+        //get all products belong to user
+        $products = Product::where('owner_id', '=', $user->id)->get();
+        
         return response()->json($products);
     }
 }

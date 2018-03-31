@@ -15,6 +15,7 @@ class ShoppingCartController extends Controller
     
     public function createShoppingCart(Request $request)
     {
+        //validate arguments 
         $validator = Validator::make($request->all(), [
             'quantity' => 'required|integer',
             'product_id' => 'required|integer',
@@ -24,36 +25,41 @@ class ShoppingCartController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        $user = User::where('address', '=', $request->address);
+        //check user
+        $user = User::where('address', '=', $request->address)->first();
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
         
+        //check if product exist
         $product_id = $request->product_id;
         $product = Product::find($product_id);
         if (!$product) {
             return response()->json(['errors' => "product_not_found"], 404);
         }
 
+        //check if enough quantity
         $quantity = $request->quantity;
         if ($quantity > $product->quantity) {
             return response()->json(['errors' => "not_enough_stocks"], 404);
         }
         
-        $newShoppingCartData = $request->only(['product_id', 'quantity']);
+        //begin to fill data in
+        $newShoppingCartData = $request->only(['product_id','quantity']);
         $newShoppingCartData['created_by'] = $user->id;
 
+        //store data into database, rollback and return errors if fail
         DB::beginTransaction();
 
         try {
-            $shoppingCart = new ShoppingCart();
-            $shoppingCart->fill($newShoppingCartData);
-            $shoppingCart->save();
+            $ShoppingCart = new ShoppingCart();
+            $ShoppingCart->fill($newShoppingCartData);
+            $ShoppingCart->save();
             DB::commit();
-            return response()->json($shoppingCart, 200);
+            return response()->json($ShoppingCart, 200);
         } catch (Exception $e) {
             DB::rollback();
-            return response()->json(['error'=>$e->getMessage()]);
+            return response()->json(['errors'=>$e->getMessage()]);
         }
 
     }
@@ -61,19 +67,23 @@ class ShoppingCartController extends Controller
     
     public function getShoppingCarts(Request $request)
     {
-        $user = User::where('address', '=', $request->address);
+        //check user
+        $user = User::where('address', '=', $request->address)->first();
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
-        $shoppingCarts = ShoppingCart::where('created_by', '=', $user->id);
 
+        //get all shoppingcarts belong to this user
+        $shoppingCarts = ShoppingCart::where('created_by', '=', $user->id)->get();
+
+       
         return response()->json($shoppingCarts);
     }
 
     
     public function updateShoppingCart($id, Request $request)
     {
-        
+        //check arguments
         $validator = Validator::make($request->all(), [
             'quantity' => 'required|integer',
         ]);
@@ -82,16 +92,26 @@ class ShoppingCartController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        $user = User::where('address', '=', $request->address);
+        //check user
+        $user = User::where('address', '=', $request->address)->first();
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
 
-        $shoppingCart = ShoppingCart::where('id', '=', $id);
+        //check if this shopping cart belong to user
+        $shoppingCart = ShoppingCart::where('id', '=', $id)->first();
         if ($shoppingCart->created_by != $user->id) {
             return response()->json(['errors' => "not_authorised"], 404);
         }
 
+        //check if enough stocks
+        $quantity = $request->quantity;
+        $product = Product::find($shoppingCart->product_id);
+        if ($quantity > $product->quantity) {
+            return response()->json(['errors' => "not_enough_stocks"], 404);
+        }
+
+        //fill the data 
         $newShoppingCartData = $request->only(['quantity']);
         $newShoppingCartData['created_by'] = $user->id;
         $shoppingCart->fill($newShoppingCartData);
@@ -101,19 +121,26 @@ class ShoppingCartController extends Controller
     }
 
     
-    public function deleteShoppingCart($id, Resquest $request)
+    public function deleteShoppingCart($id, Request $request)
     {
-        $user = User::where('address', '=', $request->address);
+         //check user
+        $user = User::where('address', '=', $request->address)->first();
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
 
-        $shoppingCart = ShoppingCart::where('id', '=', $id);
+        //check if authorised
+        $shoppingCart = ShoppingCart::where('id', '=', $id)->first();
+        if (!$shoppingCart) {
+            return response()->json(['errors' => "shoppingCart_not_found"], 404);
+        }
+        //check if shoppingcart exist
         if ($shoppingCart->created_by != $user->id) {
             return response()->json(['errors' => "not_authorised"], 404);
         }
 
         $shoppingCart->delete();
-        return response()->json(null, 204);
+        return response()->json(['messages' => "deleted_successfully"], 200);
+
     }
 }

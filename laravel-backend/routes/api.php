@@ -18,14 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //shoppingCarts API
-Route::get('shoppingCarts', 'ShoppingCartController@getShoppingCarts');
+Route::get('shoppingCarts/{address}', 'ShoppingCartController@getShoppingCarts');
 Route::post('shoppingCarts', 'ShoppingCartController@createShoppingCart');
 Route::put('shoppingCarts/{id}', 'ShoppingCartController@updateShoppingCart');
 Route::delete('shoppingCarts/{id}', 'ShoppingCartController@deleteShoppingCart');
 
 
 //Product API
-Route::get('products', 'ProductController@listAllProducts');
+Route::get('products/{address}', 'ProductController@listAllProducts');
 Route::post('products', 'ProductController@uploadProduct');
 Route::put('products/{id}', 'ProductController@editProduct');
 Route::delete('products/{id}', 'ProductController@deleteProduct');
