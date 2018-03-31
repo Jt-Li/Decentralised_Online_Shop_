@@ -1,230 +1,206 @@
 {
+	"variables": [],
 	"info": {
 		"name": "DShoppingCart",
-		"_postman_id": "615d07ab-daaa-4349-9547-108d5738f7f8",
+		"_postman_id": "a3cb860a-fa0b-9612-f89c-3da9e4be8463",
 		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "User Address Check",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "User Address Check",
+					"request": {
+						"url": "{{url}}/api/user/rgz5PGZO7D",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "192.168.99.100/api/user/rgz5PGZO7D",
-					"host": [
-						"192",
-						"168",
-						"99",
-						"100"
-					],
-					"path": [
-						"api",
-						"user",
-						"rgz5PGZO7D"
-					]
-				},
-				"description": null
-			},
-			"response": []
+				{
+					"name": "add User ",
+					"request": {
+						"url": "{{url}}/api/user",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "add User ",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
+			"name": "Product",
+			"description": "",
+			"item": [
+				{
+					"name": "listAllProducts",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "192.168.99.100/api/user",
-					"host": [
-						"192",
-						"168",
-						"99",
-						"100"
-					],
-					"path": [
-						"api",
-						"user"
-					]
+				{
+					"name": "uploadProduct",
+					"request": {
+						"url": "",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n    \"image_url\" : \"google.com\",\n    \"price\" : \"1000\",\n    \"category_id\" : \"2\"\n            \n    \n}"
+						},
+						"description": ""
+					},
+					"response": []
 				},
-				"description": null
-			},
-			"response": []
+				{
+					"name": "editProduct",
+					"request": {
+						"url": "",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n    \"image_url\" : \"google.com\",\n    \"price\" : \"1000\",\n    \"category_id\" : \"2\"\n            \n    \n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"url": "",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : \"1\"\n            \n    \n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "createShoppingCart",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"quantity\": \"2\",\n    \"product_id\": \"1\"\n}"
+			"name": "ShoppingCart",
+			"description": "",
+			"item": [
+				{
+					"name": "createShoppingCart",
+					"request": {
+						"url": "192.168.99.100/api/shoppingCarts",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"quantity\": \"2\",\n    \"product_id\": \"1\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "192.168.99.100/api/shoppingCarts",
-					"host": [
-						"192",
-						"168",
-						"99",
-						"100"
-					],
-					"path": [
-						"api",
-						"shoppingCarts"
-					]
+				{
+					"name": "getShoppingCarts",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "getShoppingCarts",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": ""
+				{
+					"name": "updateShoppingCart",
+					"request": {
+						"url": "",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : \"1\",\n\t\"quantity\": \"2\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "updateShoppingCart",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"id\" : \"1\",\n\t\"quantity\": \"2\"\n}"
-				},
-				"url": {
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "deleteShoppingCart",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"id\" : \"1\"\n}"
-				},
-				"url": {
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "listAllProducts",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "uploadProduct",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n    \"image_url\" : \"google.com\",\n    \"price\" : \"1000\",\n    \"category_id\" : \"2\"\n            \n    \n}"
-				},
-				"url": {
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "editProduct",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n    \"image_url\" : \"google.com\",\n    \"price\" : \"1000\",\n    \"category_id\" : \"2\"\n            \n    \n}"
-				},
-				"url": {
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "deleteProduct",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"id\" : \"1\"\n            \n    \n}"
-				},
-				"url": {
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
+				{
+					"name": "deleteShoppingCart",
+					"request": {
+						"url": "",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : \"1\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
