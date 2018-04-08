@@ -13,8 +13,6 @@ use Validator;
 
 class ProductController extends Controller
 {
-    //s3 link
-    private $URL="https://s3.amazonaws.com/comp9900-frog-unsw/";
     
     public function uploadProduct(Request $request)
     {
@@ -25,7 +23,7 @@ class ProductController extends Controller
             'quantity' => 'required|integer',
             'description' => 'required',
             'name' => 'required',
-            'images' => 'required',
+            'image_url' => 'required',
             'price' => 'required',
             'category_id' => 'required|integer',
         ]);
@@ -34,9 +32,7 @@ class ProductController extends Controller
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
 
-        //image file to image_url
-        $image_url =$this->URL.Storage::put('images', $request->file('images'), 'public');
-
+        
         //check user
         $user = User::where('address', '=', $request->address)->first();
         if (!$user) {
@@ -51,9 +47,9 @@ class ProductController extends Controller
         }
         
         //fill the data
-        $newProductData = $request->only(['quantity', 'description', 'name', 'price', 'category_id' ]);
+        $newProductData = $request->only(['quantity', 'image_url', 'description', 'name', 'price', 'category_id' ]);
         $newProductData['owner_id'] = $user->id;
-        $newProductData['image_url'] = $image_url;
+       
 
         //store data
         DB::beginTransaction();
@@ -77,7 +73,7 @@ class ProductController extends Controller
             'quantity' => 'required|integer',
             'description' => 'required',
             'name' => 'required',
-            'images' => 'required',
+            'image_url' => 'required',
             'price' => 'required',
             'category_id' => 'required|integer',
         ]);
@@ -110,13 +106,12 @@ class ProductController extends Controller
             return response()->json(['errors' => "category_not_found"], 404);
         }
 
-        //image file to image_url
-        $image_url =$this->URL.Storage::put('images', $request->file('images'), 'public');
+       
 
         //fill data
-        $newProductData = $request->only(['quantity', 'description', 'name', 'price', 'category_id' ]);
+        $newProductData = $request->only(['quantity', 'image_url', 'description', 'name', 'price', 'category_id' ]);
         $newProductData['owner_id'] = $user->id;
-        $newProductData['image_url'] = $image_url;
+        
 
         //store data
         $product->fill($newProductData);
