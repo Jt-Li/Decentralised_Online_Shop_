@@ -19,16 +19,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //shoppingCarts API
 Route::get('shoppingCarts/{address}', 'ShoppingCartController@getShoppingCarts');
-Route::post('shoppingCarts', 'ShoppingCartController@createShoppingCart');
+Route::post('shoppingCarts/{address}', 'ShoppingCartController@createShoppingCart');
 Route::put('shoppingCarts/{id}', 'ShoppingCartController@updateShoppingCart');
 Route::delete('shoppingCarts/{id}', 'ShoppingCartController@deleteShoppingCart');
 
 
 //Product API
-Route::get('products/{address}', 'ProductController@listAllProducts');
-Route::post('products', 'ProductController@uploadProduct');
+Route::get('products/{address}', 'ProductController@listAllOwnProducts');
+Route::post('products/{address}', 'ProductController@uploadProduct');
 Route::put('products/{id}', 'ProductController@editProduct');
 Route::delete('products/{id}', 'ProductController@deleteProduct');
+Route::get('products', 'ProductController@listAllProducts');
+Route::get('searchproducts/{key_words}', 'ProductController@searchProducts');
 
 
 
