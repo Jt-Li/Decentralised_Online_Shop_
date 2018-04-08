@@ -24,14 +24,14 @@
 							"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/user/rgz5PGZO7D",
+							"raw": "{{url}}/api/user/address",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"user",
-								"rgz5PGZO7D"
+								"address"
 							]
 						}
 					},
@@ -105,51 +105,8 @@
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "images",
-									"description": "",
-									"type": "file"
-								},
-								{
-									"key": "quantity",
-									"value": "3",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "ddfsfs",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "sup",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "price",
-									"value": "100",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "category_id",
-									"value": "1",
-									"description": "",
-									"type": "text"
-								},
-								{
-									"key": "",
-									"value": "",
-									"description": "",
-									"type": "text",
-									"disabled": true
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n\t\"price\" : \"1000\",\n\t\"image_url\" : \"https://s3.amazonaws.com/comp9900-frog-unsw/images/9sTVMqmNKr13euzD7qIxa18LYL5ajEoNtq0knPwP.jpeg\",\n    \"category_id\" : \"4\", \n    \"address\" : \"address\"\n            \n    \n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/products/address1",
@@ -177,17 +134,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n\t\"price\" : \"1000\",\n    \"category_id\" : \"4\", \n    \"address\" : \"address\"\n            \n    \n}"
+							"raw": "{\n\t\n\t\"quantity\" : \"3\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n\t\"price\" : \"1000\",\n\t\"image_url\" : \"https://s3.amazonaws.com/comp9900-frog-unsw/images/9sTVMqmNKr13euzD7qIxa18LYL5ajEoNtq0knPwP.jpeg\",\n    \"category_id\" : \"4\", \n    \"address\" : \"address\"\n            \n    \n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/products/3",
+							"raw": "{{url}}/api/products/11",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"products",
-								"3"
+								"11"
 							]
 						}
 					},
@@ -260,6 +217,39 @@
 								"api",
 								"searchproducts",
 								"sup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadImage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/image",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"image"
 							]
 						}
 					},
@@ -339,7 +329,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\n\t\"quantity\": \"1\", \n\t\"address\" : \"address\"\n}"
+							"raw": "{\n\t\n\t\"quantity\": \"3\", \n\t\"address\" : \"address\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/shoppingCarts/7",
@@ -370,14 +360,14 @@
 							"raw": "{\n\n\t\"address\" : \"address\"\n\t\n\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/shoppingCarts/13",
+							"raw": "{{url}}/api/shoppingCarts/10",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"shoppingCarts",
-								"13"
+								"10"
 							]
 						}
 					},
