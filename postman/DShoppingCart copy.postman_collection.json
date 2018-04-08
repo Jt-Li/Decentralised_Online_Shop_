@@ -52,14 +52,12 @@
 							"raw": "{\n\t\"address\":\"address\",\n\t\"email\": \"aaron@gmail.com\",\n\t\"name\" : \"aaron\"\n}"
 						},
 						"url": {
-							"raw": "192.168.99.100/api/user",
+							"raw": "{{url}}//api/user",
 							"host": [
-								"192",
-								"168",
-								"99",
-								"100"
+								"{{url}}"
 							],
 							"path": [
+								"",
 								"api",
 								"user"
 							]
@@ -74,7 +72,7 @@
 			"description": null,
 			"item": [
 				{
-					"name": "listAllProducts",
+					"name": "listAllOwnProducts",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -107,17 +105,61 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n    \"image_url\" : \"google.com\",\n    \"price\" : \"1000\",\n    \"category_id\" : \"4\", \n    \"address\" : \"address\"\n            \n    \n}"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"description": "",
+									"type": "file"
+								},
+								{
+									"key": "quantity",
+									"value": "3",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "ddfsfs",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "sup",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "100",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"description": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
 						},
 						"url": {
-							"raw": "{{url}}/api/products",
+							"raw": "{{url}}/api/products/address1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"products"
+								"products",
+								"address1"
 							]
 						}
 					},
@@ -135,7 +177,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\n\t\"quantity\" : \"1\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n    \"image_url\" : \"google.com\",\n    \"price\" : \"1000\",\n    \"category_id\" : \"2\", \n    \"address\" : \"address\"\n            \n    \n}"
+							"raw": "{\n\t\n\t\"quantity\" : \"2\",\n\t\"description\" : \"dfjldsjfldsjflksd\",\n    \"name\" : \"supreme_box_logo\",\n\t\"price\" : \"1000\",\n    \"category_id\" : \"4\", \n    \"address\" : \"address\"\n            \n    \n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/products/3",
@@ -178,6 +220,50 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "listAllProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchProducts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/api/searchproducts/sup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"searchproducts",
+								"sup"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -197,16 +283,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\n    \"product_id\": \"1\", \n    \"quantity\" : \"2\",\n    \"address\" : \"address\"\n}"
+							"raw": "{\n\t\n    \"product_id\": \"1\", \n    \"quantity\" : \"2\"\n    \n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/shoppingCarts",
+							"raw": "{{url}}/api/shoppingCarts/address",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"shoppingCarts"
+								"shoppingCarts",
+								"address"
 							]
 						}
 					},
