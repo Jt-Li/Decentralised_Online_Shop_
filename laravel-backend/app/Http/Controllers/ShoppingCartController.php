@@ -76,8 +76,14 @@ class ShoppingCartController extends Controller
         //get all shoppingcarts belong to this user
         $shoppingCarts = ShoppingCart::where('created_by', '=', $user->id)->get();
 
-       
-        return response()->json($shoppingCarts);
+        $products = DB::table('shopping_carts')
+            ->join('products', 'shopping_carts.product_id', '=', 'products.id')
+            ->where('shopping_carts.created_by', '=', $user->id)
+            ->select('products.id', 'products.owner_id', 'products.image_url',
+             'products.description', 'products.name', 'products.price', 'products.category_id',
+             'shopping_carts.quantity')
+            ->get();
+        return response()->json($products);
     }
 
     

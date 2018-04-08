@@ -24,5 +24,49 @@ class UsersTableSeeder extends Seeder
             'email' => 'test2@gmail.com',
             'address' => str_random(10)
         ]);
+        User::create([
+            'name' => str_random(10),
+            'email' => 'test3@gmail.com',
+            'address' => str_random(10)
+        ]);
+
+        User::create([
+            'name' => str_random(10),
+            'email' => 'test4@gmail.com',
+            'address' => str_random(10)
+        ]);
+        User::create([
+            'name' => str_random(10),
+            'email' => 'test5@gmail.com',
+            'address' => str_random(10)
+        ]);
+
+        User::create([
+            'name' => str_random(10),
+            'email' => 'test6@gmail.com',
+            'address' => str_random(10)
+        ]);
+        User::create([
+            'name' => str_random(10),
+            'email' => 'test7@gmail.com',
+            'address' => str_random(10)
+        ]);
+
+        User::create([
+            'name' => str_random(10),
+            'email' => 'test8@gmail.com',
+            'address' => str_random(10)
+        ]);
+        User::create([
+            'name' => str_random(10),
+            'email' => 'test9@gmail.com',
+            'address' => str_random(10)
+        ]);
+
+        User::create([
+            'name' => str_random(10),
+            'email' => 'test10@gmail.com',
+            'address' => str_random(10)
+        ]);
     }
 }

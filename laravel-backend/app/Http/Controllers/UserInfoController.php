@@ -45,6 +45,6 @@ class UserInfoController extends Controller
         if ($user === null) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
-        return response()->json(['user' => $user->id]);
+        return response()->json($user);
     }
 }

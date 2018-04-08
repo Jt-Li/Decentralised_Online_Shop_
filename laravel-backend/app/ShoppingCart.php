@@ -10,4 +10,9 @@ class ShoppingCart extends Model
         'product_id', 'quantity', 'created_by'
     ];
 
+    public function phone()
+    {
+        return $this->hasOne('App\Phone');
+    }
+
 }
