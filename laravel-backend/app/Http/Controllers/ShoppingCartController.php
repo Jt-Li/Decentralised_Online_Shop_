@@ -82,7 +82,7 @@ class ShoppingCartController extends Controller
             ->select('products.id', 'products.owner_id', 'products.image_url',
              'products.description', 'products.name', 'products.price', 'products.category_id',
              'shopping_carts.quantity')
-            ->get();
+            ->simplePaginate(10);
         return response()->json($products);
     }
 
@@ -135,12 +135,12 @@ class ShoppingCartController extends Controller
             return response()->json(['errors' => "user_not_found"], 404);
         }
 
-        //check if authorised
+        //check if shoppingcart exist
         $shoppingCart = ShoppingCart::where('id', '=', $id)->first();
         if (!$shoppingCart) {
             return response()->json(['errors' => "shoppingCart_not_found"], 404);
         }
-        //check if shoppingcart exist
+        //check if authorised
         if ($shoppingCart->created_by != $user->id) {
             return response()->json(['errors' => "not_authorised"], 404);
         }

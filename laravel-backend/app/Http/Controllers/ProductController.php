@@ -156,13 +156,13 @@ class ProductController extends Controller
         	return response()->json(['errors' => "user_not_found"], 404);
         }
         //get all products belong to user
-        $products = Product::where('owner_id', '=', $user->id)->get();
+        $products = Product::where('owner_id', '=', $user->id)->simplePaginate(10);
         
         return response()->json($products, 200);
     }
 
     public function listAllProducts(Request $request) {
-        $products = Product::all();
+        $products = DB::table('products')->simplePaginate(10);
 
         return response()->json($products, 200);
     }
@@ -171,7 +171,7 @@ class ProductController extends Controller
         //formate key words
         $key_words = '%'.$request->key_words.'%';
         //get all products contains such key words
-        $products = Product::where('name', 'like', $key_words)->get();
+        $products = Product::where('name', 'like', $key_words)->simplePaginate(10);
 
         return response()->json($products, 200);
     }
