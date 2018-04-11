@@ -43,24 +43,39 @@ class ShoppingCartController extends Controller
         if ($quantity > $product->quantity) {
             return response()->json(['errors' => "not_enough_stocks"], 404);
         }
-        
-        //begin to fill data in
-        $newShoppingCartData = $request->only(['product_id','quantity']);
-        $newShoppingCartData['created_by'] = $user->id;
 
-        //store data into database, rollback and return errors if fail
-        DB::beginTransaction();
+        //check if user have the same shoppingcart before
+        $checkShoppingCart = ShoppingCart::where('created_by', '=', $user->id)->where('product_id', '=', $product_id)->first();
 
-        try {
-            $ShoppingCart = new ShoppingCart();
-            $ShoppingCart->fill($newShoppingCartData);
-            $ShoppingCart->save();
-            DB::commit();
-            return response()->json($ShoppingCart, 200);
-        } catch (Exception $e) {
-            DB::rollback();
-            return response()->json(['errors'=>$e->getMessage()]);
+        //if user doesn't have same shoppingcart before
+        if (!$checkShoppingCart) {
+            //begin to fill data in
+            $newShoppingCartData = $request->only(['product_id','quantity']);
+            $newShoppingCartData['created_by'] = $user->id;
+
+            //store data into database, rollback and return errors if fail
+            DB::beginTransaction();
+
+            try {
+                $ShoppingCart = new ShoppingCart();
+                $ShoppingCart->fill($newShoppingCartData);
+                $ShoppingCart->save();
+                DB::commit();
+                return response()->json($ShoppingCart, 200);
+            } catch (Exception $e) {
+                DB::rollback();
+                return response()->json(['errors'=>$e->getMessage()]);
+            }
+
+        } else {
+            $oldQuantity = $checkShoppingCart->quantity;
+            $newQuantity = $oldQuantity + $quantity;
+            $checkShoppingCart['quantity']= $newQuantity;
+            $checkShoppingCart->save();
+            return response()->json($checkShoppingCart, 200);
         }
+        
+        
 
     }
 
