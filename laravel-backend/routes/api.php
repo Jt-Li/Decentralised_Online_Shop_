@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('shoppingCarts/{address}', 'ShoppingCartController@getShoppingCarts');
 Route::post('shoppingCarts/{address}', 'ShoppingCartController@createShoppingCart');
 Route::put('shoppingCarts/{id}', 'ShoppingCartController@updateShoppingCart');
-Route::delete('shoppingCarts/{id}', 'ShoppingCartController@deleteShoppingCart');
+Route::delete('shoppingCarts/{id}/{address}', 'ShoppingCartController@deleteShoppingCart');
 
 
 //Product API

@@ -81,7 +81,7 @@ class ShoppingCartController extends Controller
             ->where('shopping_carts.created_by', '=', $user->id)
             ->select('products.id', 'products.owner_id', 'products.image_url',
              'products.description', 'products.name', 'products.price', 'products.category_id',
-             'shopping_carts.quantity')
+             'shopping_carts.quantity','shopping_carts.id as shopping_carts_id')
             ->simplePaginate(10);
         return response()->json($products);
     }
@@ -127,10 +127,10 @@ class ShoppingCartController extends Controller
     }
 
     
-    public function deleteShoppingCart($id, Request $request)
+    public function deleteShoppingCart($id, $address, Request $request)
     {
          //check user
-        $user = User::where('address', '=', $request->address)->first();
+        $user = User::where('address', '=', $address)->first();
         if (!$user) {
             return response()->json(['errors' => "user_not_found"], 404);
         }
