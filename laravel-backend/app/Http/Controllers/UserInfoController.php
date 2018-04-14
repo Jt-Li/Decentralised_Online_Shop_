@@ -47,4 +47,12 @@ class UserInfoController extends Controller
         }
         return response()->json($user);
     }
+
+    public function getUserAddressById($id){
+        $user = User::where('id', '=', $id) ->first();
+        if($user == null){
+            return response()->json(['errors' => "user_not_found"], 404);
+        }
+        return response()->json($user);
+    }
 }

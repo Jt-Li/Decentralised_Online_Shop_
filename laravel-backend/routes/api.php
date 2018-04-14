@@ -37,6 +37,7 @@ Route::get('searchproducts/{key_words}', 'ProductController@searchProducts');
 //user API
 Route::get('user/{address}', 'UserInfoController@checkIfUserExists');
 Route::post('user', 'UserInfoController@store');
+Route::get('userid/{id}','UserInfoController@getUserAddressById');
 
 //Image Upload POC
 Route::post('image', 'ImageController@store');
