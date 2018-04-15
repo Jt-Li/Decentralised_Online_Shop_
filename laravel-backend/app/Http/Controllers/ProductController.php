@@ -73,9 +73,7 @@ class ProductController extends Controller
             'quantity' => 'required|integer',
             'description' => 'required',
             'name' => 'required',
-            'image_url' => 'required',
             'price' => 'required',
-            'category_id' => 'required|integer',
         ]);
         if ($validator->fails()) {
             return response()->json(["errors"=>$validator->errors()->all()], 404);
@@ -98,18 +96,9 @@ class ProductController extends Controller
         if ($product->owner_id != $user->id) {
         	return response()->json(['errors' => "not_authorised"], 404);
         }
-
-        //check category_id 
-        $category_id = $request->category_id;
-        $category = Category::find($category_id);
-        if (!$category) {
-            return response()->json(['errors' => "category_not_found"], 404);
-        }
-
-       
-
+        
         //fill data
-        $newProductData = $request->only(['quantity', 'image_url', 'description', 'name', 'price', 'category_id' ]);
+        $newProductData = $request->only(['quantity',  'description', 'name', 'price']);
         $newProductData['owner_id'] = $user->id;
         
 
@@ -166,7 +155,7 @@ class ProductController extends Controller
         //formate key words
         $key_words = '%'.$request->key_words.'%';
         //get all products contains such key words
-        $products = Product::where('name', 'like', $key_words)->simplePaginate(10);
+        $products = Product::where('name', 'ilike', $key_words)->simplePaginate(10);
 
         return response()->json($products, 200);
     }
