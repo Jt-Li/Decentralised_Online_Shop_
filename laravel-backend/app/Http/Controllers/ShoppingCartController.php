@@ -95,6 +95,7 @@ class ShoppingCartController extends Controller
             ->join('products', 'shopping_carts.product_id', '=', 'products.id')
             ->join('users', 'products.owner_id', '=', 'users.id')
             ->where('shopping_carts.created_by', '=', $user->id)
+            ->where('products.deleted', '=', 'false')
             ->select('products.id', 'products.owner_id', 'products.image_url',
              'products.description', 'products.name', 'products.price', 'products.category_id',
              'products.quantity','shopping_carts.id as shopping_carts_id','users.address as owner_address')
