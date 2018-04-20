@@ -28,10 +28,10 @@ Route::delete('shoppingCarts/{id}/{address}', 'ShoppingCartController@deleteShop
 Route::get('products/{address}', 'ProductController@listAllOwnProducts');
 Route::post('products/{address}', 'ProductController@uploadProduct');
 Route::put('products/{id}', 'ProductController@editProduct');
-Route::delete('products/{id}', 'ProductController@deleteProduct');
+Route::delete('products/{id}/{address}', 'ProductController@deleteProduct');
 Route::get('products', 'ProductController@listAllProducts');
 Route::get('searchproducts/{key_words}', 'ProductController@searchProducts');
-Route::gost('listproducts', 'ProductController@getListOfProducts');
+Route::post('listproducts', 'ProductController@getListOfProducts');
 
 
 

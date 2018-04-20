@@ -34,6 +34,7 @@ class ProductsTableSeeder extends Seeder
             $product->name = str_random(10);
             $product->category_id = 1;
             $product->price = 2;
+            $product->deleted = false;
             $product->save();
         }
     }

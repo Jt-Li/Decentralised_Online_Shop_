@@ -26,6 +26,7 @@ class ProductController extends Controller
             'image_url' => 'required',
             'price' => 'required',
             'category_id' => 'required|integer',
+            
         ]);
         $num = $request->price;
         $decimals = ( (int) $num != $num ) ? (strlen($num) - strpos($num, '.')) - 1 : 0;
@@ -50,7 +51,7 @@ class ProductController extends Controller
         }
         
         //fill the data
-        $newProductData = $request->only(['quantity', 'image_url', 'description', 'name', 'price', 'category_id' ]);
+        $newProductData = $request->only(['quantity', 'image_url', 'description', 'name', 'price', 'category_id']);
         $newProductData['owner_id'] = $user->id;
        
 
@@ -130,7 +131,8 @@ class ProductController extends Controller
         }
 
         //delete
-        $product->delete();
+        $product['deleted'] = true;
+        $product->save();
 
         return response()->json(['messages' => "deleted_successfully"], 200);
 
