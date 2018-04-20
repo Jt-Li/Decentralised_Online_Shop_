@@ -159,4 +159,11 @@ class ProductController extends Controller
 
         return response()->json($products, 200);
     }
+
+    public function getListOfProducts(Request $request) {
+        $ids = $request->ids;
+        $products = Product::whereIn('id', $ids)->get();
+
+        return response()->json($products, 200);
+    }
 }

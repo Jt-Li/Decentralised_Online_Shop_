@@ -31,6 +31,7 @@ Route::put('products/{id}', 'ProductController@editProduct');
 Route::delete('products/{id}', 'ProductController@deleteProduct');
 Route::get('products', 'ProductController@listAllProducts');
 Route::get('searchproducts/{key_words}', 'ProductController@searchProducts');
+Route::gost('listproducts', 'ProductController@getListOfProducts');
 
 
 
