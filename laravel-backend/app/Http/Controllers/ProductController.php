@@ -27,11 +27,14 @@ class ProductController extends Controller
             'price' => 'required',
             'category_id' => 'required|integer',
         ]);
-        
+        $num = $request->price;
+        $decimals = ( (int) $num != $num ) ? (strlen($num) - strpos($num, '.')) - 1 : 0;
+        if ($decimals > 3) {
+            return response()->json(["errors"=>'It can only contain 3 digits'], 404);
+        }
         if ($validator->fails()) {
             return response()->json(["errors"=>$validator->errors()->all()], 404);
         }
-
         
         //check user
         $user = User::where('address', '=', $request->address)->first();
