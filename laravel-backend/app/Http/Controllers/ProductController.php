@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\User;
+use App\ShoppingCart;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -204,15 +205,25 @@ class ProductController extends Controller
     }
 
     public function reduceProductQuantity(Request $request) {
-        $prodcut_id = $request->product_id;
-        $quantity = $request->quantity;
+        $shoppingCart = ShoppingCart::where('id', '=', $request->shoppingCartId)->first();
+        $prodcut_id = $shoppingCart->product_id;
+        $quantity = $shoppingCart->quantity;
         $product = Product::find($prodcut_id);
-        $product['quantity'] -= $quantity;
-        if ($product['quantity'] <= 0) {
-            $product['deleted'] = true;
+        if ($product['quantity'] < $quantity) {
+            return response()->json(['errors' => "Requested_quantity_not_allow"], 404);
+        } else {
+            $product['quantity'] -= $quantity;
+            if ($product['quantity'] <= 0) {
+                $product['deleted'] = true;
+            }
+            $product->save();
+            $shoppingCart->delete();
+            
+            return response()->json('Thank you for your order',200);
         }
-        $product->save();
-        return response()->json('Thank you for your order',200);
+        
+        
+        
 
     }
 }
