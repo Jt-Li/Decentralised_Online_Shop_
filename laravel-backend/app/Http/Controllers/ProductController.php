@@ -167,10 +167,30 @@ class ProductController extends Controller
     }
 
     public function getListOfProducts(Request $request) {
-        $ids = $request->ids;
-        $products = Product::whereIn('id', $ids)->get();
+        $purchasedItems = $request->purchasedItems;
+        $fields=['owner_id', 'image_url', 'description', 'name'
+        , 'category_id', 'deleted'];
+        $ids = [];
+        foreach ($purchasedItems as $item){
+            array_push($ids, $item['id']);
+        }
 
-        return response()->json($products, 200);
+        $products = Product::whereIn('id', $ids)->get();
+        foreach ($products as $product){
+            $map[$product['id']] = $product;
+        }
+
+        foreach ($purchasedItems as $item){
+            $item['product'] = 1;
+        }
+        for($i = 0; $i< sizeof($purchasedItems); $i++){
+            $temp_product = $map[$purchasedItems[$i]['id']];
+            for($j=0; $j < sizeof($fields); $j++){
+                $purchasedItems[$i][$fields[$j]] = $map[$purchasedItems[$i]['id']][$fields[$j]];
+                $purchasedItems[$i]['price'] = $purchasedItems[$i]['amount'] / $purchasedItems[$i]['quantity'];
+            }
+        }
+        return response()->json($purchasedItems, 200);
     }
 
     public function getSingleProduct($id, Request $request){
