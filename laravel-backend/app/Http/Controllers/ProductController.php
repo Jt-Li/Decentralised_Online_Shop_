@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\User;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Exception;
@@ -170,5 +171,17 @@ class ProductController extends Controller
         $products = Product::whereIn('id', $ids)->get();
 
         return response()->json($products, 200);
+    }
+
+    public function getSingleProduct($id, Request $request){
+        $product = Product::where('id', '=', $id)->where('deleted', '=', 'false')->first();
+        if(!$product){
+            return response()->json(['errors' => "product_not_available"], 404);
+        }
+        return response()->json($product, 200);
+    }
+
+    public function reduceProductQuantity($id, $address, Request $request){
+
     }
 }

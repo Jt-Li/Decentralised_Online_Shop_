@@ -32,7 +32,7 @@ Route::delete('products/{id}/{address}', 'ProductController@deleteProduct');
 Route::get('products', 'ProductController@listAllProducts');
 Route::get('searchproducts/{key_words}', 'ProductController@searchProducts');
 Route::post('listproducts', 'ProductController@getListOfProducts');
-
+Route::get('products/product/{id}', 'ProductController@getSingleProduct');
 
 
 //user API
