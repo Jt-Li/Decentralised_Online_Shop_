@@ -168,7 +168,7 @@ class ProductController extends Controller
     }
 
     public function getListOfProducts(Request $request) {
-        $purchasedItems = $request->purchasedItems;
+        $purchasedItems = $request->ids;
         $fields=['owner_id', 'image_url', 'description', 'name'
         , 'category_id', 'deleted'];
         $ids = [];
