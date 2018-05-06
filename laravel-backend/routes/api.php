@@ -33,6 +33,7 @@ Route::get('products', 'ProductController@listAllProducts');
 Route::get('searchproducts/{key_words}', 'ProductController@searchProducts');
 Route::post('listproducts', 'ProductController@getListOfProducts');
 Route::get('products/product/{id}', 'ProductController@getSingleProduct');
+Route::post('purchaseProducts', 'ProductController@reduceProductQuantity');
 
 
 //user API

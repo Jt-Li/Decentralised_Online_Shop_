@@ -178,10 +178,21 @@ class ProductController extends Controller
         if(!$product){
             return response()->json(['errors' => "product_not_available"], 404);
         }
+        $user = User::find($product['owner_id']);
+        $product['owner_address'] = $user->address;
         return response()->json($product, 200);
     }
 
-    public function reduceProductQuantity($id, $address, Request $request){
+    public function reduceProductQuantity(Request $request) {
+        $prodcut_id = $request->product_id;
+        $quantity = $request->quantity;
+        $product = Product::find($prodcut_id);
+        $product['quantity'] -= $quantity;
+        if ($product['quantity'] <= 0) {
+            $product['deleted'] = true;
+        }
+        $product->save();
+        return response()->json('Thank you for your order',200);
 
     }
 }
