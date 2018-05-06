@@ -22,7 +22,7 @@ class ProductsTableSeeder extends Seeder
             $product->description = str_random(20);
             $product->name = str_random(10);
             $product->category_id = 1;
-            $product->price = 2;
+            $product->price = 0.002;
             $product->save();
         }
         foreach (\App\User::get() as $user){
@@ -33,7 +33,7 @@ class ProductsTableSeeder extends Seeder
             $product->description = str_random(20);
             $product->name = str_random(10);
             $product->category_id = 1;
-            $product->price = 2;
+            $product->price = 0.002;
             $product->save();
         }
     }

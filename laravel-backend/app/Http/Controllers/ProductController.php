@@ -207,7 +207,7 @@ class ProductController extends Controller
     public function reduceProductQuantity(Request $request) {
         $shoppingCart = ShoppingCart::where('id', '=', $request->shoppingCartId)->first();
         $prodcut_id = $shoppingCart->product_id;
-        $quantity = $shoppingCart->quantity;
+        $quantity = $request->quantity;
         $product = Product::find($prodcut_id);
         if ($product['quantity'] < $quantity) {
             return response()->json(['errors' => "Requested_quantity_not_allow"], 404);
