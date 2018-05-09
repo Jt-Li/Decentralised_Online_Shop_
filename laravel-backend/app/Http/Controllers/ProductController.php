@@ -26,18 +26,20 @@ class ProductController extends Controller
             'description' => 'required',
             'name' => 'required',
             'image_url' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|min:0',
             'category_id' => 'required|integer',
             
         ]);
+        if ($validator->fails()) {
+            return response()->json(["errors"=>$validator->errors()->all()], 404);
+        }
+
         $num = $request->price;
         $decimals = ( (int) $num != $num ) ? (strlen($num) - strpos($num, '.')) - 1 : 0;
         if ($decimals > 3) {
             return response()->json(["errors"=>'It can only contain 3 digits'], 404);
         }
-        if ($validator->fails()) {
-            return response()->json(["errors"=>$validator->errors()->all()], 404);
-        }
+        
         
         //check user
         $user = User::where('address', '=', $request->address)->first();
