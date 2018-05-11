@@ -179,6 +179,7 @@ class ProductController extends Controller
         }
 
         $products = Product::whereIn('id', $ids)->get();
+        $map = array();
         foreach ($products as $product){
             $map[$product['id']] = $product;
         }
@@ -187,10 +188,12 @@ class ProductController extends Controller
             $item['product'] = 1;
         }
         for($i = 0; $i< sizeof($purchasedItems); $i++){
-            $temp_product = $map[$purchasedItems[$i]['id']];
-            for($j=0; $j < sizeof($fields); $j++){
-                $purchasedItems[$i][$fields[$j]] = $map[$purchasedItems[$i]['id']][$fields[$j]];
-                $purchasedItems[$i]['price'] = $purchasedItems[$i]['amount'] / $purchasedItems[$i]['quantity'];
+            if (array_key_exists($purchasedItems[$i]['id'],$map)) {
+                $temp_product = $map[$purchasedItems[$i]['id']];
+                for ($j = 0; $j < sizeof($fields); $j++) {
+                    $purchasedItems[$i][$fields[$j]] = $map[$purchasedItems[$i]['id']][$fields[$j]];
+                    $purchasedItems[$i]['price'] = $purchasedItems[$i]['amount'] / $purchasedItems[$i]['quantity'];
+                }
             }
         }
         return response()->json($purchasedItems, 200);
