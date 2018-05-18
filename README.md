@@ -59,6 +59,10 @@ docker-compose up
 ```
 This will start the database and nginx server.
 Open another terminal and go to the folder laravel-backend,
+first run the command 
+```
+composer install
+```
 run the command
 ```
 php artisan migrate
