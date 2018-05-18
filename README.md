@@ -1,4 +1,4 @@
-## Review
+## Overview
 It's a Dencentralized App, user information and production information is stored in the server database,  while transactions and transaction history will happen in the block chain. 
 In terms of the backend, PHP laravel and Docker are used.
 
