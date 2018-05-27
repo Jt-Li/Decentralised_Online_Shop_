@@ -80,5 +80,5 @@ Greate, all set! Go to the brower [Main Page](http://192.168.99.100/indexD.html#
 Have a look at all the authors. They are awesome!
 [Aaron Su](https://github.com/AaronSuAu)
 [Rex Yang](https://github.com/yangyjrex)
-[JT Li]([https://github.com/Jt-Li](https://github.com/Jt-Li))
+[JT Li](https://github.com/Jt-Li)
 [Freya Song](https://github.com/freyasong) 
